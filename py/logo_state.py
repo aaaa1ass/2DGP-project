@@ -1,6 +1,6 @@
 from pico2d import *
 import game_framework
-import play_state
+import menu_state
 import time
 
 running = True
@@ -11,7 +11,6 @@ logo_time = 0.0
 def enter():
     global image
     image = load_image('tuk_credit.png')
-    pass
 
 def exit():
     global image
@@ -22,7 +21,7 @@ def update():
     # global running
     if logo_time > start_time + 2:
         logo_time = 0
-        game_framework.change_state(play_state)
+        game_framework.change_state(menu_state)
         # game_framework.quit()
     logo_time = time.time()
 

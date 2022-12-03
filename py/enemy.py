@@ -93,9 +93,10 @@ class Enemy_2:
         self.y = random.randint(300,500)
         self.velocity = 0.2
         self.i = 0
-        self.max_hp =1
+        self.max_hp = 3
         self.hp = self.max_hp
-        self.heart = None
+        self.heart = Heart(self.x,self.y)
+        self.heart_gen = random.randint(1,100)
 
     def update(self,x,y):
         if x < self.x: dx = self.x - x
@@ -126,14 +127,19 @@ class Enemy_2:
         self.i = 0.01
 
         if self.hp < 1:
-            print('remove 1')
-            self.heart = Heart(self.x, self.y)
+            print('remove')
             self.x, self.y = 800, 800
+            self.heart.x = self.x
+            self.heart.y = self.y
 
-            i = random.randint(1,100)
-            if i > 70:
-                game_world.add_object(self.heart,1)
+            print('heart_gen =',self.heart_gen)
+            if self.heart_gen > 50:
+                print('add heart')
+
+            game_world.add_object(self.heart,1)
+
             play_state.playercharacter.exp += 20
+
             game_world.remove_object(self)
 
     def draw(self):
@@ -152,7 +158,7 @@ class Enemy_2:
         #     self.hp -= 1
         #     print(self.hp)
         # if group == 'b:e2':
-        #     self.hp -= 1
+        #     self.hp -= 1p
         # if group == 'e1:e2':
         # for i in range(play_state.room.enemy_num - 1):
         #     for j in range(play_state.room.enemy_num - 1 - i):

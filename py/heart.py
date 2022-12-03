@@ -33,7 +33,7 @@ class Heart:
 
     def handle_collision(self,other,group):
             if group == 'h:p':
-                self.x, self.y = 0, 900
+                self.x, self.y = 900, 900
 
             if play_state.playercharacter.hp < play_state.playercharacter.max_hp:
                 play_state.playercharacter.hp += 1

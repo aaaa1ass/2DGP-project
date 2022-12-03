@@ -3,6 +3,7 @@ import play_state
 import game_world
 from door import Door
 from enemy import Enemy_2
+from heart import Heart
 
 
 class Room:
@@ -13,12 +14,15 @@ class Room:
         self.lock = True
         # self.enemy = [Enemy_2() for i in range(3)]
         self.new = False
-        self.level = 1
+        self.level = 0
         self.enemy_num = self.level
         self.clear = False
         self.enemy_list = [Enemy_2() for i in range(self.enemy_num)]
         print(self.enemy_num)
         game_world.add_collision_paris(play_state.playercharacter,self.door,'p:d')
+
+        self.heart = Heart(100,100)
+        game_world.add_object(self.heart,1)
 
         for i in self.enemy_list:
             game_world.add_object(i,1)
