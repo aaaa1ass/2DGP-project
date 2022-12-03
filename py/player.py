@@ -281,10 +281,10 @@ class PlayerCharacter:
         self.q.insert(0,key_event)
 
     def __init__(self):
-        self.image = load_image('character.png')
-        self.image_1 = load_image('character-1.png')
-        self.image_heart = load_image('heart.png')
-        self.image_exp = load_image('exp.png')
+        self.image = load_image('image\character.png')
+        self.image_1 = load_image('image\character-1.png')
+        self.image_heart = load_image('image\heart.png')
+        self.image_exp = load_image('image\exp.png')
         self.body_frame = 0
         self.x = 400
         self.y = 300
@@ -297,6 +297,7 @@ class PlayerCharacter:
         self.max_hp = 5
         self.hp = self.max_hp
         self.font = load_font('ENCR10B.TTF', 32)
+
         self.level = 1
         self.exp = 0
         self.levelup_exp = 100

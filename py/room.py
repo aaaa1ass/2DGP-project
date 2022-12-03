@@ -8,7 +8,7 @@ from heart import Heart
 
 class Room:
     def __init__(self):
-        self.image = load_image('room.png')
+        self.image = load_image('image\\room.png')
         self.door = Door()
         game_world.add_object(self.door, 1)
         self.lock = True

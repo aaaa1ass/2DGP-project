@@ -7,7 +7,7 @@ class Heart:
 
     def __init__(self,x,y):
         if Heart.image == None:
-            Heart.image = load_image('heart.png')
+            Heart.image = load_image('image\heart.png')
         self.x = x
         self.y = y
         self.hit = False

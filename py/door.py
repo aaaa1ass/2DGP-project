@@ -7,7 +7,7 @@ class Door:
 
     def __init__(self):
         if Door.image == None:
-            Door.image = load_image('door.png')
+            Door.image = load_image('image\door.png')
         self. x = 400
         self. y = 520
         self.lock = True
