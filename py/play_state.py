@@ -2,6 +2,9 @@ from pico2d import *
 import game_framework
 import logo_state
 import game_world
+import paused_state
+import menu_state
+import gameover_state
 
 from player import PlayerCharacter
 from room import Room
@@ -9,13 +12,14 @@ from enemy import Enemy_1
 
 
 r = 0
+main_menu = False
 def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_state(logo_state)
+            game_framework.push_state(paused_state)
         else:
             playercharacter.handle_event(event)
 
@@ -33,7 +37,7 @@ def enter():
     # enemy2 = Enemy_1(300,200,0.2)
     # game_world.add_object(enemy1, 1)
     # game_world.add_object(enemy2, 1)
-    game_world.add_object(playercharacter,1)
+    game_world.add_object(playercharacter,2)
     game_world.add_object(room,0)
 
     # game_world.add_collision_paris(playercharacter,enemy1,'p:e1')
@@ -46,7 +50,7 @@ def exit():
     game_world.clear()
 
 def update():
-    global r
+    global r, main_menu
     for game_object in game_world.all_objects():
             game_object.update(playercharacter.x,playercharacter.y)
 
@@ -57,6 +61,15 @@ def update():
             # print('COLLISION ', group)
             a.handle_collision(b, group)
             b.handle_collision(a, group)
+
+    if main_menu is True:
+        main_menu = False
+        game_framework.change_state(menu_state)
+    elif playercharacter.hp < 1:
+        playercharacter.score_x = 300
+        playercharacter.score_y = 300
+        game_framework.push_state(gameover_state)
+
     if r > 0:
         r += 1
     if r > 100 :
@@ -74,6 +87,7 @@ def draw():
     update_canvas()
 
 def pause():
+
     pass
 
 def resume():

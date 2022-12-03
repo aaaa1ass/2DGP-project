@@ -14,7 +14,7 @@ quit_color = off_color
 
 def enter():
     global image, font
-    image = load_image('main_menu.png')
+    image = load_image('image\main_menu.png')
     font = load_font('ENCR10B.TTF',32)
 
 def exit():
@@ -55,7 +55,10 @@ def handle_events():
 
             # game_framework.change_state(play_state)
 
-
+def pause():
+    pass
+def resume():
+    pass
 def test_self():
     import menu_state
 
