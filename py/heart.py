@@ -12,17 +12,15 @@ class Heart:
         self.y = y
         self.hit = False
 
-        game_world.add_collision_paris(self,play_state.playercharacter, 'h:p')
+        # game_world.add_collision_paris(self,play_state.playercharacter, 'h:p')
 
     def update(self,x,y):
         if self.hit:
-            self.x = 900
-            self.y = 900
             game_world.remove_object(self)
-        if play_state.r > 0:
-            self.x = 900
-            self.y = 900
-            game_world.remove_object(self)
+        # if play_state.r > 0:
+        #     self.x = 900
+        #     self.y = 900
+        #     game_world.remove_object(self)
 
     def draw(self):
         self.image.clip_draw(0, 250, 75, 50, self.x, self.y)
@@ -33,8 +31,4 @@ class Heart:
 
     def handle_collision(self,other,group):
             if group == 'h:p':
-                self.x, self.y = 900, 900
-
-            if play_state.playercharacter.hp < play_state.playercharacter.max_hp:
-                play_state.playercharacter.hp += 1
                 self.hit = True

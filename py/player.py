@@ -1,3 +1,5 @@
+import random
+
 from pico2d import *
 import game_framework
 import game_world
@@ -285,23 +287,35 @@ class PlayerCharacter:
         self.image_1 = load_image('image\character-1.png')
         self.image_heart = load_image('image\heart.png')
         self.image_exp = load_image('image\exp.png')
+        self.hurt_sound = load_wav('sound\Hurt.wav')
+        self.hurt1_sound = load_wav('sound\Hurt1.wav')
+        self.hurt2_sound = load_wav('sound\Hurt2.wav')
+        self.die_sound = load_wav('sound\Player_die.wav')
+        self.hurt_sound.set_volume(32)
+        self.hurt1_sound.set_volume(32)
+        self.hurt2_sound.set_volume(32)
+        self.die_sound.set_volume(32)
         self.body_frame = 0
         self.x = 400
         self.y = 300
         self.x_dir, self.y_dir, self.look_x_dir, self.look_y_dir = 0, 0, 0, -1
         self.cool_down = 0
         self.fire_time = 0
-        self.cool_down_time = 0.5
+        self.attack_speed = 2
+        self.cool_down_time = 1 / self.attack_speed
         self.god_time = 1
         self.damaged = 0
         self.max_hp = 5
         self.hp = self.max_hp
         self.font = load_font('ENCR10B.TTF', 32)
+        self.score = 0
+        self.score_x = 600
+        self.score_y = 550
 
         self.level = 1
         self.exp = 0
-        self.levelup_exp = 100
-        self.dexp = 20
+        self.levelup_exp = 40
+        self.dexp = 5
 
         self.q = []
         self.cur_state = IDLE
@@ -315,6 +329,7 @@ class PlayerCharacter:
     def update(self,x,y):
         self.cur_state.do(self)
         if self.cool_down == 1:
+            self.cool_down_time = 1 / self.attack_speed
             self.fire_time = time.time() + self.cool_down_time
             self.cool_down = 2
         if self.cool_down == 2 and self.fire_time < time.time():
@@ -328,6 +343,7 @@ class PlayerCharacter:
 
         if self.exp >= self.levelup_exp:
             self.level += 1
+            self.attack_speed += 0.2
             self.exp -= self.levelup_exp
             self.levelup_exp *= (self.dexp / 100 + 1)
 
@@ -347,7 +363,8 @@ class PlayerCharacter:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(400,50,str(self.level),(0,255,0))
+        self.font.draw(390,50,str(self.level),(0,255,0))
+        self.font.draw(self.score_x,self.score_y,'score:'+ str(self.score),(0,255,255))
         for i in range(self.max_hp):
             if i >= self.hp:
                 self.image_heart.clip_draw(0,121,75,50,100 + i * 50,550)
@@ -391,7 +408,33 @@ class PlayerCharacter:
             if group == 'p:e'+ str(i) and self.damaged == 0:
                 self.hp -= 1
                 self.damaged = 1
+                if self.hp < 1:
+                    self.die_sound.play()
+                else:
+                    self.hurt_sound_play()
+
+        if group == 'h:p':
+            print("heart")
+            if self.hp < self.max_hp:
+                self.hp += 1
+        if group == 'eb:p'and self.damaged == 0:
+            self.hp -= 1
+            self.damaged = 1
+            if self.hp < 1:
+                self.die_sound.play()
+            else:
+                self.hurt_sound_play()
         # if group == 'p:e1' and self.damaged == 0:
+
+    def hurt_sound_play(self):
+        s = random.randint(0, 2)
+        print(s)
+        if s == 0:
+            self.hurt_sound.play()
+        elif s == 1:
+            self.hurt1_sound.play()
+        else:
+            self.hurt2_sound.play()
 
 
 
