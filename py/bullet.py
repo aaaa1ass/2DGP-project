@@ -14,7 +14,7 @@ class Bullet:
 
     def __init__(self,x,y,x_dir,y_dir,velocity):
         if Bullet.image == None:
-            Bullet.image = load_image('character.png')
+            Bullet.image = load_image('image\character.png')
         self.x = x
         self.y = y
         self.x_dir = x_dir

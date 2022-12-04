@@ -29,7 +29,6 @@ def draw():
     image.draw(400,300,800,600)
     font.draw(100,140,'PLAY',play_color)
     font.draw(100,100,'QUIT GAME',quit_color)
-    draw_rectangle(px1,py1,px2,py2)
     update_canvas()
 
 def handle_events():

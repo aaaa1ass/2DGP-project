@@ -34,6 +34,5 @@ class Door:
                 play_state.room.level += 1
                 play_state.playercharacter.y -= 400
                 play_state.room.clear = True
-                play_state.r = 1
+                # play_state.r = 1
                 self.lock = True
-        # if group == 'b:e1'or group == 'b:e2':

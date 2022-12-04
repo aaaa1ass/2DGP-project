@@ -424,7 +424,6 @@ class PlayerCharacter:
                 self.die_sound.play()
             else:
                 self.hurt_sound_play()
-        # if group == 'p:e1' and self.damaged == 0:
 
     def hurt_sound_play(self):
         s = random.randint(0, 2)
